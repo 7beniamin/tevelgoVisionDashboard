@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vehicle & Face Match Results</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f6f9;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .table-container {
+      max-width: 1200px;
+      margin: auto;
+      overflow-x: auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      background-color: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #3f51b5;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #e6f0ff;
+    }
+
+    .match {
+      color: green;
+      font-weight: bold;
+    }
+
+    .mismatch {
+      color: red;
+      font-weight: bold;
+    }
+
+    .notfound {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .output {
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Vehicle and Face Verification Summary</h1>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Face</th>
+          <th>Licence Plate</th>
+          <th>Car Make</th>
+          <th>Car Model</th>
+          <th>Output</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">Authorized user</td></tr>
+        <tr><td>2</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="mismatch">❌ Mismatch</td><td class="output">Authorized user, car model mismatch</td></tr>
+        <tr><td>3</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="mismatch">❌ Mismatch</td><td class="match">✅ Match</td><td class="output">Authorized user, car make mismatch</td></tr>
+        <tr><td>4</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="mismatch">❌ Mismatch</td><td class="mismatch">❌ Mismatch</td><td class="output">Authorized user, car make aur car model mismatch</td></tr>
+        <tr><td>5</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="notfound">🚫 Not Found</td><td class="match">✅ Match</td><td class="output">Authorized user, car make not found</td></tr>
+        <tr><td>6</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="notfound">🚫 Not Found</td><td class="output">Authorized user, car model not found</td></tr>
+        <tr><td>7</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="notfound">🚫 Not Found</td><td class="notfound">🚫 Not Found</td><td class="output">Authorized user, car make aur car model not found</td></tr>
+        <tr><td>8</td><td class="match">✅ Match</td><td class="mismatch">❌ Mismatch</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, licence plate mismatch</td></tr>
+        <tr><td>9</td><td class="mismatch">❌ Mismatch</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, face mismatch</td></tr>
+        <tr><td>10</td><td class="match">✅ Match</td><td class="notfound">🚫 Not Found</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, licence plate not found</td></tr>
+        <tr><td>11</td><td class="notfound">🚫 Not Found</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, face not found</td></tr>
+        <tr><td>12</td><td class="notfound">🚫 Not Found</td><td class="notfound">🚫 Not Found</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, face aur licence plate not found</td></tr>
+        <tr><td>13</td><td class="mismatch">❌ Mismatch</td><td class="mismatch">❌ Mismatch</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, face aur licence plate mismatch</td></tr>
+        <tr><td>14</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="mismatch">❌ Mismatch</td><td class="notfound">🚫 Not Found</td><td class="output">Authorized user, car make mismatch, car model not found</td></tr>
+        <tr><td>15</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="notfound">🚫 Not Found</td><td class="mismatch">❌ Mismatch</td><td class="output">Authorized user, car model mismatch, car make not found</td></tr>
+        <tr><td>16</td><td class="mismatch">❌ Mismatch</td><td class="notfound">🚫 Not Found</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, face mismatch aur licence plate not found</td></tr>
+        <tr><td>17</td><td class="notfound">🚫 Not Found</td><td class="mismatch">❌ Mismatch</td><td class="match">✅ Match</td><td class="match">✅ Match</td><td class="output">UnAuthorized, face not found aur licence plate mismatch</td></tr>
+        <tr><td>18</td><td class="mismatch">❌ Mismatch</td><td class="mismatch">❌ Mismatch</td><td class="mismatch">❌ Mismatch</td><td class="mismatch">❌ Mismatch</td><td class="output">UnAuthorized</td></tr>
+        <tr><td>19</td><td class="notfound">🚫 Not Found</td><td class="notfound">🚫 Not Found</td><td class="notfound">🚫 Not Found</td><td class="notfound">🚫 Not Found</td><td class="output">Data not found, kindly try again</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</body>
+</html>

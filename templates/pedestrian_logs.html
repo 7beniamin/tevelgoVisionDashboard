@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pedestrian Logs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- External CSS Files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg custom-navbar fixed-top position-relative">
+    <div class="container-fluid position-relative" style="padding:0;">
+      <button id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="hamburger-icon">&#9776;</span>
+      </button>
+      <div class="navbar-brand-center mx-auto">
+        <img src="{{ url_for('static', filename='images/tevelgo-visia-high-resolution-logo-transparent.png') }}" alt="Logo">
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <a class="nav-link" href="{{ url_for('index') }}">
+      <i class="fas fa-home me-2"></i> Dashboard
+    </a>
+    <h4>Database</h4>
+    <ul class="nav flex-column mb-4">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('view_vehicles') }}">Authorized Vehicles</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('view_pedestrians') }}">Authorized Pedestrians</a></li>
+    </ul>
+    <h4>Add Authorized Data</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('add_vehicle_page') }}">Add Vehicle</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('add_pedestrian_page') }}">Add Pedestrian</a></li>
+    </ul>
+    <h4>Access Records</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('VehicleLogs') }}">Vehicle Activity</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('pedestrainLogs') }}">Pedestrian Activity</a></li>
+    </ul>
+  </div>
+  <!-- Main Content -->
+  <div id="main" class="main">
+    <div class="container-fluid px-0">
+      <div class="card p-3">
+        <h5 class="card-title">Pedestrian Logs</h5>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Face</th>
+                <th>Pedestrian ID</th>
+              </tr>
+            </thead>
+            <tbody id="pedestrian-log-body">
+              {% for log in pedestrian_logs %}
+                <tr id="pedestrian-{{ log.row_key }}">
+                  <td>{{ log.status or log.output or 'Unauthorized' }}</td>
+                  <td class="user-local-date" data-timestamp="{{ log.timestamp }}"></td>
+                  <td class="user-local-time" data-timestamp="{{ log.timestamp }}"></td>
+                  <td>{{ log.face_status or log.Face or 'Not Found' }}</td>
+                  <td>{{ log.row_key or 'N/A' }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/datetime.js') }}"></script>
+</body>
+</html>

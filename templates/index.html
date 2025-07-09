@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic page setup -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>Tevelgo Vision Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- External CSS files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+</head>
+<body>
+  <!-- Fixed top navbar -->
+  <nav class="navbar navbar-expand-lg custom-navbar fixed-top position-relative" style="min-height:70px;">
+    <div class="container-fluid position-relative" style="padding:0;">
+      <button id="sidebarToggle" aria-label="Toggle sidebar">&#9776;</button>
+      <div class="navbar-brand-center mx-auto">
+        <img src="{{ url_for('static', filename='images/tevelgo-visia-high-resolution-logo-transparent.png') }}" alt="Logo">
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar navigation -->
+  <div id="mySidebar" class="sidebar">
+    <a class="nav-link" href="{{ url_for('index') }}">
+      <i class="fas fa-home me-2"></i> Dashboard
+    </a>
+    <h4>Database</h4>
+    <ul class="nav flex-column mb-4">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('view_vehicles') }}">Authorized Vehicles</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('view_pedestrians') }}">Authorized Pedestrians</a></li>
+    </ul>
+    <h4>Add Authorized Data</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('add_vehicle_page') }}">Add Vehicle</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('add_pedestrian_page') }}">Add Pedestrian</a></li>
+    </ul>
+    <h4>Logs</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('VehicleLogs') }}">Vehicle Logs</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('pedestrainLogs') }}">Pedestrian Logs</a></li>
+    </ul>
+  </div>
+  <!-- Main content area -->
+  <div id="main" class="main">
+    <h1 class="mb-4" style="font-weight:700;">Access Control Hub</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    <!-- Only the summary chart card remains -->
+    <div class="card p-3 mt-4">
+      <h5 class="card-title">Authorization Summary</h5>
+      <canvas
+        id="summaryChart"
+        width="300" height="120"
+        data-vehicle-success="{{ vehicle_stats.success }}"
+        data-vehicle-fail="{{ vehicle_stats.failed }}"
+        data-vehicle-mismatch="{{ vehicle_stats.mismatch }}"
+        data-pedestrian-success="{{ pedestrian_stats.success }}"
+        data-pedestrian-fail="{{ pedestrian_stats.failed }}"
+      ></canvas>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- External JS files (order matters: sidebar, datetime (if any date/time), then charts last) -->
+  <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+</body>
+</html>

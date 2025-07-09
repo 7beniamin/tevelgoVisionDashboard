@@ -1,0 +1,29 @@
+/* card.css */
+.card {
+  background: linear-gradient(145deg, #fff, #f8f8f8) !important;
+  color: #000 !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 1rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+.card-title {
+  color: #00b894 !important;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #d3f6ef;
+  padding-bottom: 0.5rem;
+}
+@media (max-width: 900px) { .card { padding: 1rem; } }
+@media (max-width: 750px) {
+  .card { border-radius: 0.7rem; padding: 1rem; }
+}

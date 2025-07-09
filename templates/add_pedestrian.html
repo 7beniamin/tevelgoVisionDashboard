@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Add Authorized Pedestrian</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- External CSS Files -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg custom-navbar fixed-top position-relative">
+    <div class="container-fluid position-relative" style="padding:0;">
+      <button id="sidebarToggle" aria-label="Toggle sidebar">
+        <span class="hamburger-icon">&#9776;</span>
+      </button>
+      <div class="navbar-brand-center mx-auto">
+        <img src="{{ url_for('static', filename='images/tevelgo-visia-high-resolution-logo-transparent.png') }}" alt="Logo">
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
+  <div id="mySidebar" class="sidebar">
+    <a class="nav-link" href="{{ url_for('index') }}">
+      <i class="fas fa-home me-2"></i> Dashboard
+    </a>
+    <h4>Database</h4>
+    <ul class="nav flex-column mb-4">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('view_vehicles') }}">Authorized Vehicles</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('view_pedestrians') }}">Authorized Pedestrians</a></li>
+    </ul>
+    <h4>Add Authorized Data</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('add_vehicle_page') }}">Add Vehicle</a></li>
+      <li class="nav-item"><a class="nav-link active" href="{{ url_for('add_pedestrian_page') }}">Add Pedestrian</a></li>
+    </ul>
+    <h4>Access Records</h4>
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('VehicleLogs') }}">Vehicle Activity</a></li>
+      <li class="nav-item"><a class="nav-link" href="{{ url_for('pedestrainLogs') }}">Pedestrian Activity</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div id="main" class="main">
+    <div class="card">
+      <div class="d-flex flex-row form-guideline-row gap-3">
+        <div class="flex-fill form-col">
+          <h2 class="mb-4">Add Authorized Pedestrian</h2>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+          <form method="POST" action="{{ url_for('add_pedestrian') }}" enctype="multipart/form-data" novalidate>
+            <div class="mb-3">
+              <label for="facePicturePedestrian" class="form-label">Authorized Pedestrian Face Picture *</label>
+              <input type="file" id="facePicturePedestrian" name="facePicturePedestrian" class="form-control" accept="image/*" required />
+            </div>
+            <div class="mb-3">
+              <label for="pedestrianId" class="form-label">Pedestrian ID *</label>
+              <input type="text" id="pedestrianId" name="pedestrianId" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Add Pedestrian</button>
+            <div class="guidelines-box mt-4">
+              <h5>Face Image Guidelines:</h5>
+              <ul>
+                <li>Ensure the face is clearly visible and centered.</li>
+                <li>Use good lighting; avoid shadows or glare.</li>
+                <li>Face should be directly looking at the camera; no side angles.</li>
+                <li>Do not wear sunglasses, masks, or hats.</li>
+                <li>Use a high-quality image to ensure accurate recognition.</li>
+              </ul>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+</body>
+</html>
